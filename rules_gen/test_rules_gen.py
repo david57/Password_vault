@@ -1,0 +1,68 @@
+from rules_gen.rules_gen import *
+
+def test_rule_gen():
+    print("on imprime rien si ca passe le test avec succes\n")
+    print("test d'un code bin : ")
+    print("    code qui fonctionne :")
+    rule = Rules()
+    rule.parse("4#10#1")
+    print("Impression du code, function :" + rule.create_code())
+    print("    code qui ne fonctionne pas :")
+    rule.parse("4#20#5")
+    print("    code qui ne fonctionne pas :")
+    rule.parse("2#20#1")
+    
+    
+    print("\ntest d'un code hexa")
+    print("    code qui fonctionne :")
+    rule.parse("4#13#3")
+    print("Impression du code, function :" + rule.create_code())
+    print("    code qui ne fonctionne pas :")
+    rule.parse("4#-1#3")
+    
+    print("\ntest d'un code entier")
+    print("    code qui fonctionne :")
+    rule.parse("4#10#2")
+    
+    
+    print("\ntest d'une chaine de caractere")
+    print("    code lisible")
+    print("        code qui fonctionne")
+    rule.parse("4#10#4#0#2")
+    print("Impression du code, function :" + rule.create_code())
+    print("        code manque des infos")
+    rule.parse("4#10#4#0")
+    print("    code non lisible")
+    print("        code qui fonctionne")
+    rule.parse("4#10#4#654#0")
+    print("        code qui ne fonctionne pas")
+    rule.parse("4#10#4#12#2")
+
+    
+    print("\ntest d'une chaine lisible passphrase")
+    print("    code qui fonctionne")
+    print("        code 0 parametre")
+    rule.parse("4#10#4#0#3")
+    print("Impression du code, function :" + rule.create_code())
+    print("        code 1 parametre")
+    rule.parse("4#10#4#0#2#0#10")
+    print("Impression du code, function :" + rule.create_code())
+    print("        code 2 parametres")
+    rule.parse("4#10#4#0#3#0#2#1#3")
+    print("Impression du code, function :" + rule.create_code())
+    print("        code 3 parametres")
+    rule.parse("4#12#4#0#4#0#10#1#10#2#2")
+    print("Impression du code, function :" + rule.create_code())
+    print("        ne sera pas pris en compte par les generateurs")
+    print("    code qui ne fonctionne pas")
+    print("        code 0 parametre")
+    rule.parse("4#10#4#0#1")
+    print("        code 1 parametre")
+    rule.parse("4#10#4#0#2#3#23")
+    print("        code 2 parametres")
+    rule.parse("4#3#4#0#3#0#-1#1#1")
+    
+    
+    print("rules subsets :")
+    rule.parse("4#10#4#0#3#0#2#1#3")
+    print(rule.get_spe_char())
