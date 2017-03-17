@@ -7,7 +7,7 @@ It can stock a lot of password for different user and using. The password vault 
 
 ############################################################################################
 
-Take a look in version 1.0 for the beginning of the code
+<strong><em>Take a look in version 1.0 for the beginning of the code.</em></strong>
 
 ############################################################################################
 
