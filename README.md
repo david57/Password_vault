@@ -52,6 +52,7 @@ Code format number and corresponding :
  - CODE_CAP : 0
  - CODE_SPE_CHAR : 1
  
+  
  
 The code generation is made with a decision tree :
 Type : (only CODE_STR)                        4
