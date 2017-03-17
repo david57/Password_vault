@@ -4,15 +4,20 @@ password vault in python multi-user
 The password vault is a project for password's storage for some different users.
 It can stock a lot of password for different user and using. The password vault contains a key generator.
 
-##########
+
+############################################################################################
+
 Take a look in version 1.0 for the beginning of the code
-##########
+
+############################################################################################
 
 Dependencies :
   - python3
   - tkinter
   - sqlite3
   - ttk
+
+############################################################################################
 
 Functionning of the key generator :
 The key generator can generate a lot of key with a different format: 
@@ -29,7 +34,9 @@ The key generator can generate a lot of key with a different format:
 It is possible for the string type format to add special char, capital letters and numbers.
 The 4 word is a choice of 4 word into a dictionary. 
 The 4 word and passphrases are not implemented for the moment.
- 
+
+############################################################################################
+
 The rules are stock into a database and are associated with a name :
  - you can associate a key format with a service
  - you can share this database for add new rules into the database
@@ -52,4 +59,19 @@ Code format number and corresponding :
  - CODE_CAP : 0
  - CODE_SPE_CHAR : 1
  
-Take a look into the file TreeCode for more details about the organisation of the code.
+ 
+############################################################################################
+
+Take a look into the file TreeCode.PNG for more details about the creation of a code.
+
+############################################################################################
+
+This project use the Design Pattern : Chain of responsibility for the creation of a rules. It take in parameter a code or a rules and use the COR DP for use the right key genererator.
+
+############################################################################################
+
+The key generator uses the function urandom() present in os.
+import os;
+os.urandom()
+This function takes random bytes values into the OS. This must be use at the place of random because random use pseudo-random generator and is not efficiency.
+urandom use the pseudo-random generator provide by the os, which use the entries of a lot of device (keyboard, mouse, network trafic, cpu frequency, ram memory...).
