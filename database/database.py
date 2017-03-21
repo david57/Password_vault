@@ -27,9 +27,9 @@ class database:
         table schema label | code
 	create users and credentials"""
         try:
-            self.cursor.execute('''CREATE TABLE rules (LABEL TEXT, CODE TEXT)''') 
-	    self.cursor.execute('''CREATE TABLE IF NOT EXISTS users (LOGIN TEXT PRIMARY KEY, PW TEXT)''')
-	    self.cursor.execute('''CREATE TABLE IF NOT EXISTS credentials (ID TEXT, PW TEXT, APP TEXT, LOGIN TEXT, IV TEXT FOREIGN KEY(LOGIN) REFERENCES users(LOGIN))''')
+		self.cursor.execute('''CREATE TABLE rules (LABEL TEXT, CODE TEXT)''') 
+		self.cursor.execute('''CREATE TABLE IF NOT EXISTS users (LOGIN TEXT PRIMARY KEY, PW TEXT)''')
+		self.cursor.execute('''CREATE TABLE IF NOT EXISTS credentials (ID TEXT, PW TEXT, APP TEXT, LOGIN TEXT, IV TEXT FOREIGN KEY(LOGIN) REFERENCES users(LOGIN))''')
         except sqlite3.Error as e:
             print("An error occurred:", e.args[0])
                
