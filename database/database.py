@@ -24,10 +24,12 @@ class database:
         
     def create_tables(self):
         """create the table for the rules and code
-        table schema label | code"""
+        table schema label | code
+	create users and credentials"""
         try:
-            self.cursor.execute('''CREATE TABLE rules 
-            (LABEL TEXT, CODE TEXT)''') 
+            self.cursor.execute('''CREATE TABLE rules (LABEL TEXT, CODE TEXT)''') 
+	    self.cursor.execute('''CREATE TABLE IF NOT EXISTS users (LOGIN TEXT PRIMARY KEY, PW TEXT)''')
+	    self.cursor.execute('''CREATE TABLE IF NOT EXISTS credentials (ID TEXT, PW TEXT, APP TEXT, LOGIN TEXT, IV TEXT FOREIGN KEY(LOGIN) REFERENCES users(LOGIN))''')
         except sqlite3.Error as e:
             print("An error occurred:", e.args[0])
                
@@ -79,5 +81,62 @@ class database:
         """delete all the rules associated to this code"""
         try:
             self.cursor.execute('''DELETE FROM rules WHERE code = (?)''', [code])
+        except sqlite3.Error as e:
+            print("An error occurred:", e.args[0])
+     
+    def insert_user(self, login, pw):
+        """insert a new rules into the database"""
+        try:
+            self.cursor.execute('''INSERT OR REPLACE INTO users VALUES (?, ?)''', [login, pw])
+	    self.db.commit()
+        except sqlite3.Error as e:
+            print("An error occurred:", e.args[0])
+
+    def insert_creds(self, ident, pw, login):
+        """insert a new rules into the database"""
+        try:
+            self.cursor.execute('''INSERT OR REPLACE INTO credentials VALUES (?, ?, ?)''', [ident, pw, login])
+        except sqlite3.Error as e:
+            print("An error occurred:", e.args[0])
+            
+    def select_users(self):
+        """select all the rules into the database"""
+        try:
+            return self.cursor.execute('''SELECT * FROM users''')
+        except sqlite3.Error as e:
+            print("An error occurred:", e.args[0])
+        
+    def select_by_login(self, login):
+        """select the code associated to the label in entry"""
+        try:
+            return self.cursor.execute('''SELECT * FROM users WHERE login = (?)''', [login])
+        except sqlite3.Error as e:
+            print("An error occurred:", e.args[0])
+        
+    def select_creds(self, login):
+        """select the label associated to the code in entry"""
+        try:
+            return self.cursor.execute('''SELECT * FROM credentials WHERE login = (?)''', [login])
+        except sqlite3.Error as e:
+            print("An error occurred:", e.args[0])
+            
+    def delete_user(self, login):
+        """delete the only rules associated to the label and the code"""
+        try:
+            self.cursor.execute('''DELETE FROM users WHERE login = (?)''', [login])
+        except sqlite3.Error as e:
+            print("An error occurred:", e.args[0])     
+    
+    def delete_creds(self, login):
+        """delete all the rules associated to this label""" 
+        try:
+            self.cursor.execute('''DELETE FROM users WHERE login = (?)''', [login])
+        except sqlite3.Error as e:
+            print("An error occurred:", e.args[0])    
+        
+    def delete_by_code(self, code):
+        """delete all the rules associated to this code"""
+        try:
+            self.cursor.execute('''DELETE FROM users WHERE code = (?)''', [code])
         except sqlite3.Error as e:
             print("An error occurred:", e.args[0])
