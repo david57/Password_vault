@@ -8,6 +8,7 @@ It can stock a lot of password for different user and using. The password vault 
 ############################################################################################
 
 <strong><em>Take a look on folder password_vault for the beginning of the code.</em></strong>
+<strong><em>Only the part random generator for now and not finished</em></strong>
 
 ############################################################################################
 
